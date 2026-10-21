@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ENAFUL MUSIC API — Music Developer Platform</title>
+
+    <meta name="description" content="ENAFUL MUSIC API — A developer platform for authorized music streaming, audio processing, API keys, and music bot integrations.">
+    <meta name="theme-color" content="#080808">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        :root {
+            --bg: #080808;
+            --panel: #101010;
+            --panel-light: #151515;
+            --border: #242424;
+            --text: #f5f5f5;
+            --muted: #909090;
+            --accent: #c9a66b;
+            --green: #70e6a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 85px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .container {
+            width: min(1120px, 92%);
+            margin: auto;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(8, 8, 8, 0.91);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            min-height: 66px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 11px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #e5c58c, #96723a);
+            color: #080808;
+            font-size: 17px;
+            font-weight: 900;
+        }
+
+        .brand .music {
+            color: var(--accent);
+        }
+
+        .brand .api {
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-button {
+            padding: 9px 13px;
+            border: 1px solid #393124;
+            border-radius: 9px;
+            color: var(--accent) !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            color: white;
+            border: 0;
+            font-size: 25px;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 95px 0 65px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 440px;
+            height: 440px;
+            right: -180px;
+            top: -100px;
+            background: radial-gradient(
+                circle,
+                rgba(201, 166, 107, 0.14),
+                transparent 70%
+            );
+            pointer-events: none;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 11px;
+            background: #14130f;
+            border: 1px solid #393124;
+            border-radius: 30px;
+            color: var(--accent);
+            font-size: 11px;
+            margin-bottom: 25px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            display: inline-block;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 10px rgba(112, 230, 160, 0.5);
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 7.5vw, 82px);
+            font-weight: 900;
+            line-height: 1.02;
+            letter-spacing: -4px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 .outline {
+            color: transparent;
+            -webkit-text-stroke: 1px #555;
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent);
+        }
+
+        .hero-description {
+            max-width: 560px;
+            color: #aaa;
+            font-size: 15px;
+            margin-bottom: 27px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 17px;
+            border-radius: 9px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .button-primary {
+            background: var(--accent);
+            color: #090909;
+        }
+
+        .button-primary:hover {
+            background: #e4c38b;
+            transform: translateY(-2px);
+        }
+
+        .button-secondary {
+            border: 1px solid #333;
+            background: #111;
+        }
+
+        .button-secondary:hover {
+            border-color: var(--accent);
+        }
+
+        /* CODE BLOCK */
+
+        .code-window {
+            max-width: 760px;
+            background: #0d0d0d;
+            border: 1px solid #292929;
+            border-radius: 13px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #131313;
+            border-bottom: 1px solid #242424;
+            color: #999;
+            font-size: 11px;
+        }
+
+        .code-header button {
+            color: var(--accent);
+            background: transparent;
+            border: 0;
+            font-size: 11px;
+        }
+
+        .code-content {
+            padding: 20px;
+            overflow-x: auto;
+            color: #c5d4c5;
+            font: 12px/2 monospace;
+            white-space: pre;
+        }
+
+        .code-comment {
+            color: #707070;
+        }
+
+        .hero-footnote {
+            color: #737373;
+            font-size: 10px;
+            margin-top: 13px;
+        }
+
+        /* COMMON SECTIONS */
+
+        section {
+            padding: 68px 0;
+        }
+
+        .section-heading {
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 10px;
+            font-weight: 800;
+            margin-bottom: 9px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(25px, 4vw, 37px);
+            letter-spacing: -1.2px;
+            margin-bottom: 8px;
+        }
+
+        .section-heading p {
+            max-width: 620px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* STATS */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px;
+        }
+
+        .stat-card {
+            padding: 22px;
+            border: 1px solid var(--border);
+            background: var(--panel);
+            border-radius: 12px;
+        }
+
+        .stat-card strong {
+            display: block;
+            font-size: 22px;
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
+        }
+
+        .stat-card span {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        /* HOW IT WORKS */
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px;
+        }
+
+        .step-card {
+            padding: 22px;
+            border: 1px solid var(--border);
+            background: linear-gradient(145deg, #141414, #0c0c0c);
+            border-radius: 12px;
+        }
+
+        .step-number {
+            display: inline-block;
+            color: var(--accent);
+            font-size: 11px;
+            margin-bottom: 17px;
+        }
+
+        .step-card h3 {
+            font-size: 15px;
+            margin-bottom: 9px;
+        }
+
+        .step-card p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* ENDPOINTS */
+
+        .endpoint-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .endpoint-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 19px;
+            border-radius: 11px;
+            transition: 0.2s;
+        }
+
+        .endpoint-card:hover {
+            border-color: #625039;
+            transform: translateY(-2px);
+        }
+
+        .method {
+            display: inline-block;
+            padding: 4px 7px;
+            font: 800 9px monospace;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .get {
+            background: #14241b;
+            color: #75d89c;
+        }
+
+        .post {
+            background: #282013;
+            color: #e3b66f;
+        }
+
+        .endpoint-card code {
+            display: block;
+            font-size: 12px;
+            color: #eee;
+            margin-bottom: 10px;
+            overflow-wrap: anywhere;
+        }
+
+        .endpoint-card p {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        /* PRICING */
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .price-card {
+            padding: 23px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+        }
+
+        .price-card.featured {
+            border-color: #967744;
+            background: linear-gradient(150deg, #1c1913, #101010);
+        }
+
+        .price-card h3 {
+            font-size: 15px;
+            margin-bottom: 7px;
+        }
+
+        .price-card .price {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin: 12px 0 4px;
+        }
+
+        .price-card .price small {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        .price-card .limit {
+            color: var(--muted);
+            font-size: 11px;
+            margin-bottom: 18px;
+        }
+
+        .price-card ul {
+            list-style: none;
+            margin-bottom: 22px;
+        }
+
+        .price-card li {
+            color: #c4c4c4;
+            font-size: 11px;
+            padding: 8px 0;
+            border-bottom: 1px solid #242424;
+        }
+
+        .price-card li::before {
+            content: "✓";
+            color: var(--green);
+            margin-right: 9px;
+        }
+
+        .price-card .button {
+            width: 100%;
+        }
+
+        /* AUTHENTICATION */
+
+        .auth-box {
+            padding: 25px;
+            background: #101010;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .auth-box p {
+            color: var(--muted);
+            font-size: 12px;
+            margin: 12px 0 18px;
+        }
+
+        .auth-code {
+            padding: 15px;
+            border-radius: 8px;
+            background: #080808;
+            border: 1px solid #282828;
+            overflow-x: auto;
+            font: 11px/2 monospace;
+            color: #d8c49f;
+        }
+
+        /* CTA */
+
+        .cta {
+            text-align: center;
+            padding: 40px 20px;
+            background: radial-gradient(
+                ellipse at top,
+                #282015,
+                #111 65%
+            );
+            border: 1px solid #332a1e;
+            border-radius: 16px;
+        }
+
+        .cta h2 {
+            font-size: clamp(25px, 4vw, 38px);
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            color: #aaa;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 30px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 65px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-inner p,
+        .footer-links a {
+            color: #777;
+            font-size: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* TOAST */
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 25px;
+            transform: translate(-50%, 20px);
+            padding: 12px 17px;
+            background: #242424;
+            border: 1px solid #444;
+            border-radius: 9px;
+            color: white;
+            font-size: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.25s;
+            z-index: 200;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 760px) {
+            .nav-inner {
+                min-height: 60px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                padding: 18px 4%;
+                background: #0c0c0c;
+                border-bottom: 1px solid var(--border);
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 5px;
+                border-bottom: 1px solid #202020;
+            }
+
+            .hero {
+                padding-top: 65px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .stats-grid,
+            .steps-grid,
+            .endpoint-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 48px 0;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .brand {
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 761px) and (max-width: 950px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <header class="navbar">
+        <div class="container nav-inner">
+
+            <a class="brand" href="#home" aria-label="ENAFUL MUSIC API Home">
+                <div class="brand-logo">E</div>
+                <div>ENAFUL <span class="music">MUSIC</span> <span class="api">API</span></div>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Toggle navigation"
+                aria-expanded="false">
+                ☰
+            </button>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#documentation">Documentation</a>
+                <a href="#endpoints">Endpoints</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#authentication">Authentication</a>
+                <a href="#pricing" class="nav-button">Get API Key</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero" id="home">
+            <div class="container">
+
+                <div class="hero-label">
+                    <span class="status-dot"></span>
+                    ENAFUL MUSIC DEVELOPER PLATFORM
+                </div>
+
+                <h1>
+                    <span class="outline">ENAFUL MUSIC</span><br>
+                    <span class="highlight">MUSIC API</span><br>
+                    FOR DEVELOPERS.
+                </h1>
+
+                <p class="hero-description">
+                    Build music applications and Telegram bots with
+                    a developer-focused API for authorized audio
+                    processing, streaming integrations, and API management.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#documentation" class="button button-primary">
+                        Read Documentation →
+                    </a>
+
+                    <a href="#endpoints" class="button button-secondary">
+                        Explore Endpoints
+                    </a>
+                </div>
+
+                <div class="code-window" id="documentation">
+
+                    <div class="code-header">
+                        <span>GET /api/health</span>
+                        <button id="copyExample">COPY CODE</button>
+                    </div>
+
+                    <pre class="code-content" id="exampleCode"><span class="code-comment"># ENAFUL MUSIC API health check</span>
+curl -X GET \
+  "https://your-domain.com/api/health" \
+  -H "X-API-Key: YOUR_API_KEY"</pre>
+
+                </div>
+
+                <p class="hero-footnote">
+                    Example endpoint only. Connect the backend before use.
+                </p>
+
+            </div>
+        </section>
+
+        <!-- PLATFORM OVERVIEW -->
+
+        <section>
+            <div class="container">
+
+                <div class="section-heading">
+                    <div class="eyebrow">Music API Platform</div>
+                    <h2>Everything for your music projects.</h2>
+                    <p>
+                        Manage API access, monitor requests, and connect
+                        supported audio sources to your applications.
+                    </p>
+                </div>
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <strong>API Keys</strong>
+                        <span>Individual keys for music API authentication.</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong>Music Streaming</strong>
+                        <span>Integration with supported audio sources.</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong>Usage Analytics</strong>
+                        <span>Monitor API requests and plan limits.</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+
+        <section>
+            <div class="container">
+
+                <div class="section-heading">
+                    <div class="eyebrow">Getting Started</div>
+                    <h2>How it works.</h2>
+                    <p>
+                        Connect your application to ENAFUL MUSIC API
+                        through a simple request-and-response workflow.
+                    </p>
+                </div>
+
+                <div class="steps-grid">
+
+                    <article class="step-card">
+                        <span class="step-number">01 / ACCESS</span>
+                        <h3>Get an API Key</h3>
+                        <p>
+                            Create an account and obtain your API key
+                            when the authentication system is available.
+                        </p>
+                    </article>
+
+                    <article class="step-card">
+                        <span class="step-number">02 / REQUEST</span>
+                        <h3>Request Music Data</h3>
+                        <p>
+                            Send a request to a supported endpoint
+                            with your API key.
+                        </p>
+                    </article>
+
+                    <article class="step-card">
+                        <span class="step-number">03 / RESPONSE</span>
+                        <h3>Connect Your Bot</h3>
+                        <p>
+                            Process the API response in your application
+                            or supported Telegram Music Bot.
+                        </p>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ENDPOINTS -->
+
+        <section id="endpoints">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div class="eyebrow">Music API Reference</div>
+                    <h2>API endpoints.</h2>
+                    <p>
+                        Proposed routes for the ENAFUL MUSIC API.
+                        These endpoints require a working backend.
+                    </p>
+                </div>
+
+                <div class="endpoint-grid">
+
+                    <article class="endpoint-card">
+                        <span class="method get">GET</span>
+                        <code>/api/health</code>
+                        <p>Check whether the API service is running.</p>
+                    </article>
+
+                    <article class="endpoint-card">
+                        <span class="method get">GET</span>
+                        <code>/api/usage</code>
+                        <p>Retrieve your authenticated API usage.</p>
+                    </article>
+
+                    <article class="endpoint-card">
+                        <span class="method get">GET</span>
+                        <code>/api/account</code>
+                        <p>View account and subscription information.</p>
+                    </article>
+
+                    <article class="endpoint-card">
+                        <span class="method post">POST</span>
+                        <code>/api/music/search</code>
+                        <p>Search a configured, supported music catalogue.</p>
+                    </article>
+
+                    <article class="endpoint-card">
+                        <span class="method post">POST</span>
+                        <code>/api/music/stream</code>
+                        <p>Request an authorized audio stream.</p>
+                    </article>
+
+                    <article class="endpoint-card">
+                        <span class="method get">GET</span>
+                        <code>/api/plans</code>
+                        <p>View available API subscription plans.</p>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- AUTHENTICATION -->
+
+        <section id="authentication">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div class="eyebrow">Security</div>
+                    <h2>API authentication.</h2>
+                    <p>
+                        API requests will use a private API key
+                        passed through the request header.
+                    </p>
+                </div>
+
+                <div class="auth-box">
+
+                    <strong>Example request header</strong>
+
+                    <p>
+                        Keep your API key private. Do not expose secret
+                        keys in public frontend JavaScript or repositories.
+                    </p>
+
+                    <div class="auth-code">X-API-Key: YOUR_API_KEY</div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PRICING -->
+
+        <section id="pricing">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div class="eyebrow">Subscription Plans</div>
+                    <h2>Choose your music API plan.</h2>
+                    <p>
+                        Example subscription options. Billing and plan
+                        enforcement will be connected through the backend.
+                    </p>
+                </div>
+
+                <div class="pricing-grid">
+
+                    <article class="price-card">
+                        <h3>Free</h3>
+                        <div class="price">₹0</div>
+                        <p class="limit">100 requests / day</p>
+
+                        <ul>
+                            <li>API key access</li>
+                            <li>Basic endpoints</li>
+                            <li>Usage tracking</li>
+                        </ul>
+
+                        <a href="#authentication" class="button button-secondary">
+                            Get Started
+                        </a>
+                    </article>
+
+                    <article class="price-card featured">
+                        <h3>Starter ★</h3>
+                        <div class="price">₹79</div>
+                        <p class="limit">5,000 requests / day</p>
+
+                        <ul>
+                            <li>Everything in Free</li>
+                            <li>Higher request limit</li>
+                            <li>30-day subscription</li>
+                        </ul>
+
+                        <a href="#authentication" class="button button-primary">
+                            Select Starter
+                        </a>
+                    </article>
+
+                    <article class="price-card">
+                        <h3>Pro</h3>
+                        <div class="price">₹299</div>
+                        <p class="limit">25,000 requests / day</p>
+
+                        <ul>
+                            <li>Higher request limit</li>
+                            <li>Usage monitoring</li>
+                            <li>30-day subscription</li>
+                        </ul>
+
+                        <a href="#authentication" class="button button-secondary">
+                            Select Pro
+                        </a>
+                    </article>
+
+                    <article class="price-card">
+                        <h3>Basic</h3>
+                        <div class="price">₹49</div>
+                        <p class="limit">3,000 requests / day</p>
+
+                        <ul>
+                            <li>API key access</li>
+                            <li>Basic usage statistics</li>
+                            <li>30-day subscription</li>
+                        </ul>
+
+                        <a href="#authentication" class="button button-secondary">
+                            Select Basic
+                        </a>
+                    </article>
+
+                    <article class="price-card">
+                        <h3>Standard</h3>
+                        <div class="price">₹149</div>
+                        <p class="limit">10,000 requests / day</p>
+
+                        <ul>
+                            <li>Standard request limit</li>
+                            <li>Usage monitoring</li>
+                            <li>30-day subscription</li>
+                        </ul>
+
+                        <a href="#authentication" class="button button-secondary">
+                            Select Standard
+                        </a>
+                    </article>
+
+                    <article class="price-card">
+                        <h3>Enterprise</h3>
+                        <div class="price">₹999</div>
+                        <p class="limit">100,000 requests / day</p>
+
+                        <ul>
+                            <li>High request limit</li>
+                            <li>API usage monitoring</li>
+                            <li>30-day subscription</li>
+                        </ul>
+
+                        <a href="#authentication" class="button button-secondary">
+                            Contact Support
+                        </a>
+                    </article>
+
+                </div>
+
+                <p class="hero-footnote">
+                    Prices and quotas are illustrative. Payment processing,
+                    plan enforcement, and API access controls are not active
+                    until the backend is implemented.
+                </p>
+
+            </div>
+        </section>
+
+        <!-- CTA -->
+
+        <section>
+            <div class="container">
+
+                <div class="cta">
+                    <div class="eyebrow">Build Your Music Project</div>
+
+                    <h2>Your Music. Your API.</h2>
+
+                    <p>
+                        Build music applications and connect supported
+                        audio services with ENAFUL MUSIC API.
+                    </p>
+
+                    <a href="#documentation" class="button button-primary">
+                        Explore Documentation →
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer>
+        <div class="container footer-inner">
+
+            <a class="brand" href="#home">
+                <div class="brand-logo">E</div>
+                <div>ENAFUL <span class="music">MUSIC</span> <span class="api">API</span></div>
+            </a>
+
+            <p>
+                © <span id="year"></span> ENAFUL MUSIC API.
+                Developer platform.
+            </p>
+
+            <div class="footer-links">
+                <a href="#documentation">Docs</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#authentication">Security</a>
+            </div>
+
+        </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.getElementById("navLinks");
+        const toast = document.getElementById("toast");
+
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+        menuToggle.addEventListener("click", () => {
+            const isOpen = navLinks.classList.toggle("open");
+
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+            menuToggle.textContent = isOpen ? "✕" : "☰";
+        });
+
+        navLinks.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("open");
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.textContent = "☰";
+            });
+        });
+
+        let toastTimer;
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add("show");
+
+            clearTimeout(toastTimer);
+
+            toastTimer = setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2500);
+        }
+
+        document.getElementById("copyExample").addEventListener(
+            "click",
+            async () => {
+                const code = document.getElementById(
+                    "exampleCode"
+                ).innerText;
+
+                try {
+                    await navigator.clipboard.writeText(code);
+                    showToast("Example code copied!");
+                } catch {
+                    showToast(
+                        "Copy unavailable. Please select the code manually."
+                    );
+                }
+            }
+        );
+    </script>
+
+</body>
+  </html>
